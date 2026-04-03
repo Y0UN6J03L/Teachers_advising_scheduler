@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher - Schedule & Requests</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- <link rel="stylesheet" href="./CSS/Teacher.css"/> -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #1a4d2e;
+      --green-mid:    #2d7a4f;
+      --green-bright: #3a9a60;
+      --green-card:   #236b3f;
+      --btn-bg:       #e8f0eb;
+      --btn-hover:    #d0e4d8;
+      --text-white:   #ffffff;
+      --text-muted:   rgba(255,255,255,0.75);
+      --shadow:       0 8px 32px rgba(0,0,0,0.35);
+      --radius:       18px;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      background: #fcfbfb;
+      overflow-x: hidden;
+      z-index: -1;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        url('./img/Bg_img.jpg')
+        center / cover no-repeat;
+      filter: brightness(0.38) saturate(0.7);
+      z-index: 1;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      height: 68px;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--green-dark);
+      border-radius: 2px;
+      transition: transform 0.3s;
+    }
+
+    .nav-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--green-dark);
+    }
+
+    .nav-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .nav-avatar:hover { background: var(--green-mid); }
+    .nav-avatar svg { width: 26px; height: 26px; fill: #fff; }
+
+    /* ── MAIN ── */
+    main {
+      position: relative;
+      z-index: 5;
+      padding: 40px 36px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: inline-block;
+      background: var(--green-dark);
+      color: var(--text-white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 10px 24px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      animation: fadeDown 0.5s ease both;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ── DAY CARD ── */
+    .day-card {
+      background: var(--green-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      animation: fadeUp 0.5s ease both;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .day-card:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+    }
+
+    /* stagger */
+    .day-card:nth-child(1) { animation-delay: 0.05s; }
+    .day-card:nth-child(2) { animation-delay: 0.10s; }
+    .day-card:nth-child(3) { animation-delay: 0.15s; }
+    .day-card:nth-child(4) { animation-delay: 0.20s; }
+    .day-card:nth-child(5) { animation-delay: 0.25s; }
+    .day-card:nth-child(6) { animation-delay: 0.30s; }
+
+
+    /* left section */
+    .day-info {
+      flex: 1;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .day-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-white);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .view-schedule {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .view-schedule:hover { color: #fff; }
+    .view-schedule svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* divider */
+    .divider {
+      width: 1.5px;
+      background: rgba(255,255,255,0.2);
+      margin: 14px 0;
+    }
+
+    /* right section – request button */
+    .request-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 18px;
+      gap: 6px;
+    }
+
+    .request-btn {
+      background: var(--btn-bg);
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      width: 100%;
+      transition: background 0.18s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .request-btn:hover {
+      background: var(--btn-hover);
+      transform: scale(1.04);
+    }
+    .request-btn:active { transform: scale(0.97); }
+
+    .request-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--green-dark);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .inbox-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--green-dark);
+    }
+
+    .new-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .grid { grid-template-columns: 1fr; }
+      main { padding: 24px 16px 48px; }
+      .day-name { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-title">TEACHER</div>
+    <div class="nav-avatar" aria-label="Profile">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <div class="section-header">SCHEDULE &amp; REQUESTS</div>
+
+    <div class="grid" id="dayGrid"></div>
+  </main>
+
+  <script>
+    const days = [
+      { name: "MONDAY",    newCount: 3 },
+      { name: "TUESDAY",   newCount: 3 },
+      { name: "WEDNESDAY", newCount: 3 },
+      { name: "THURSDAY",  newCount: 3 },
+      { name: "FRIDAY",    newCount: 5 },
+      { name: "SATURDAY",  newCount: 2 }
+    ];
+
+    // Calendar icon SVG
+    const calSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 4h-1V2h-2v2H8V2H6v2H5C3.9 4 3 4.9 3 6v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7z"/>
+    </svg>`;
+
+    // Inbox icon SVG
+    const inboxSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-3h3.6c.7 1.2 2 2 3.4 2s2.7-.8 3.4-2H19v3zm0-5h-4c0 1.1-.9 2-2 2s-2-.9-2-2H5V5h14v9z"/>
+    </svg>`;
+
+    const grid = document.getElementById('dayGrid');
+
+    days.forEach(({ name, newCount }) => {
+      grid.innerHTML += `
+        <div class="day-card">
+          <div class="day-info">
+            <div class="day-name">${name}</div>
+            <div class="view-schedule">${calSVG} VIEW SCHEDULE</div>
+          </div>
+          <div class="divider"></div>
+          <div class="request-col">
+            <button class="request-btn">
+              <div class="inbox-icon">${inboxSVG}</div>
+              <div class="request-label">STUDENT<br>REQUEST</div>
+            </button>
+            <div class="new-badge">(${newCount} new)</div>
+          </div>
+        </div>`;
+    });
+  </script>
+
+</body>
+</html>

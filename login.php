@@ -1,0 +1,226 @@
+<?php header('Location: login-pure.html'); exit; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup Form</title>
+    <link rel="stylesheet" href="./CSS/login_signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.23.0/sweetalert2.min.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+<a class="nav-brand" href="#">
+            <img src="./img/meta 5.png" alt="Meta5 Logo" class="nav-logo">
+            <span class="nav-title">Teacher and Student Scheduling</span>
+        </a>
+        <a href="./index.html" class="nav-cta">Home</a>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="background-shape"></div>
+        <div class="secondary-shape"></div>
+
+        <!-- Login Panel -->
+        <div class="credentials-panel signin">
+            <h2 class="slide-element">Login</h2>
+            <form id="loginForm">
+                <div class="field-wrapper slide-element">
+                    <input type="text" id="StudentID" required>
+                    <label>Student ID or Email</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="field-wrapper slide-element">
+                    <input type="password" id="loginPassword" required>
+                    <label>Password</label>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+<button class="submit-button slide-element" type="submit" style="margin-top: 25px;">Login</button>
+                
+                <div class="switch-link slide-element">
+                    <p>Don't have an account? <br> <a href="#" class="register-trigger">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="welcome-section signin">
+            <h2 class="slide-element">WELCOME TO KLD SCHEDULING</h2>
+        </div>
+
+        <!-- Register Panel -->
+        <div class="credentials-panel signup">
+            <h2 class="slide-element">Register</h2>
+            <form id="registerForm">
+                <div class="field-wrapper slide-element">
+                    <select name="role" id="Role" required>
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+                <div class="field-wrapper slide-element">
+                    <input type="text" id="regStudentID" name="id" required>
+                    <label>Student ID</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                 <div class="field-wrapper slide-element">
+                    <input type="text" id="regFullName" name="full_Name" required>
+                    <label>Full Name</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="field-wrapper slide-element">
+                    <input type="email" id="regEmail" name="email" required>
+                    <label>Email</label>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div class="field-wrapper slide-element">
+                    <input type="password" id="regPassword" name="password" required>
+                    <label>Password</label>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <button name="submit" id="submit" class="submit-button slide-element" type="submit" style="margin-top: 25px;">Register</button>
+
+                <div class="switch-link slide-element">
+                    <p>Already have an account? <br> <a href="#" class="login-trigger">Sign In</a></p>
+                </div>
+            </form>
+
+        
+    
+        </div>
+
+        <div class="welcome-section signup">
+            <h2 class="slide-element">WELCOME!</h2>
+        </div>
+    
+    </div>
+
+    <div class="footer">
+        <p>Made with ♥ by <a href="#" target="_blank">Meta5 <sub>2026</sub></a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.23.0/sweetalert2.min.js"></script>
+    <script src="./script/style.js"></script>
+    <script>
+      // Role change handler - dynamic label change based on selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('Role');
+        const studentIDInput = document.getElementById('regStudentID');
+        const studentIDLabel = studentIDInput.parentElement.querySelector('label');
+
+        function updateStudentField() {
+          const role = roleSelect.value;
+          if (role === 'Student') {
+            studentIDInput.placeholder = '';
+            studentIDInput.id = 'regStudentID';
+            studentIDLabel.textContent = 'Student ID';
+          } else if (role === 'Teacher') {
+            studentIDInput.id = 'regTeacherID';
+            studentIDLabel.textContent = 'Teacher ID';
+          } else if (role === 'Admin') {
+            studentIDInput.id = 'regAdminID';
+            studentIDLabel.textContent = 'Admin ID';
+          }
+        }
+
+        roleSelect.addEventListener('change', updateStudentField);
+        updateStudentField(); // Initial call
+        updateStudentField(); // Initial call
+      });
+
+      // ── SweetAlert2 themed helper ──
+      // ── SweetAlert2 themed helper ──
+      const swal = (opts) => Swal.fire({
+        background:         'rgba(10, 28, 10, 0.97)',
+        color:              '#e8f5e8',
+        confirmButtonColor: '#12b929',
+        iconColor:          '#12b929',
+        customClass: {
+          popup:         'swal-login-popup',
+          confirmButton: 'swal-login-confirm',
+        },
+        ...opts
+      });
+
+      // ── Login form ──
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+  const email = document.getElementById('StudentID').value.trim();
+        const pass = document.getElementById('loginPassword').value.trim();
+
+        if (!email || !pass) {
+          swal({ icon: 'warning', title: 'Missing fields', text: 'Please enter both username and password.' });
+          return;
+        }
+
+        // AJAX login
+        fetch('backend/api/auth.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({action: 'login', email, password: pass})
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            swal({icon: 'success', title: 'Login Success!', text: `Welcome ${data.role}`})
+            .then(() => {
+              sessionStorage.setItem('role', data.role);
+              window.location.href = `../HTML/${data.role.charAt(0).toUpperCase() + data.role.slice(1)}.html`;
+            });
+          } else {
+            swal({icon: 'error', title: 'Login Failed', text: data.message});
+          }
+        });
+      });
+
+      // ── Register form ──
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const role = document.getElementById('Role').value;
+        const full_name = document.getElementById('regFullName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const pass = document.getElementById('regPassword').value.trim();
+
+        if (!full_name || !email || !pass) {
+          swal({ icon: 'warning', title: 'Missing fields', text: 'Please fill in all fields to register.' });
+          return;
+        }
+
+        if (pass.length < 6) {
+          swal({ icon: 'error', title: 'Weak password', text: 'Password must be at least 6 characters.' });
+          return;
+        }
+
+        // AJAX register
+        fetch('backend/api/auth.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({action: 'register', email, password: pass, full_name, role})
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            swal({icon: 'success', title: 'Registration Success!', text: `Welcome ${full_name}! ${role} account created.`})
+            .then(() => {
+              sessionStorage.setItem('role', role);
+              window.location.href = `../HTML/${roles}.html`;
+            });
+          } else {
+            swal({icon: 'error', title: 'Registration Failed', text: data.message || 'Something went wrong'});
+          }
+        })
+        .catch(err => swal({icon: 'error', title: 'Error', text: 'Network error'}));
+      });
+    </script>
+</body>
+
+</html>

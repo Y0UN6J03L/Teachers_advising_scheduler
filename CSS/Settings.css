@@ -1,0 +1,119 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      height: 100%;
+      font-family: 'Outfit', sans-serif;
+      background-image: url('/MetaV/MetaV(1)/img/Bg_img.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: #e8f5e5;
+      overflow-x: hidden;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      background: #2b4d26;
+      padding: 0 18px;
+    }
+    .topbar-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e8f5e5;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      flex: 1;
+      text-align: center;
+    }
+    .back-btn {
+      color: #e8f5e5;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 4px 8px;
+    }
+
+    /* MAIN */
+    .main {
+      padding: 28px 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ROWS */
+    .settings-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* LEFT LABEL */
+    .label-btn {
+      width: 250px;
+      min-height: 110px;
+      background: #3a6e32;
+      border: none;
+      border-radius: 18px;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+
+    /* RIGHT FORM BOX */
+    .form-box {
+      width: 300px;
+      min-height: 110px;
+      background: #3a6e32;
+      border-radius: 20px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: #e8f5e5;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.4); }
+    .form-input:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.14); }
+    .form-input:invalid:not(:placeholder-shown) { border-color: rgba(255,100,100,0.6); }
+
+    .save-btn {
+      width: 100%;
+      padding: 9px;
+      background: #4e9e44;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    .save-btn:hover { background: #5ab04f; }

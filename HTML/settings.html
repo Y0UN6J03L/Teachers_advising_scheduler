@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+href="../CSS/Settings.css"
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <a href="#" class="back-btn" id="backBtn"><i class="fa fa-arrow-left"></i></a>
+  <div class="topbar-title">S E T T I N G S</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Change Password -->
+  <div class="settings-row">
+    <div class="label-btn">Change<br>Password</div>
+    <form class="form-box">
+      <input class="form-input" type="password" placeholder="Current Password" required />
+      <input class="form-input" type="password" placeholder="New Password" minlength="6" required />
+      <input class="form-input" type="password" placeholder="Confirm New Password" minlength="6" required />
+      <button class="save-btn" type="submit">Save</button>
+    </form>
+  </div>
+
+  <!-- Forgot Password -->
+  <div class="settings-row">
+    <div class="label-btn">Forgot<br>Password</div>
+    <form class="form-box">
+      <input class="form-input" type="email" placeholder="Enter your Email" required />
+      <button class="save-btn" type="submit">Send Reset Link</button>
+    </form>
+  </div>
+
+  <!-- Change Email -->
+  <div class="settings-row">
+    <div class="label-btn">Change<br>Email</div>
+    <form class="form-box">
+      <input class="form-input" type="email" placeholder="Current Email" required />
+      <input class="form-input" type="email" placeholder="New Email" required />
+      <input class="form-input" type="password" placeholder="Password" required />
+      <button class="save-btn" type="submit">Save</button>
+    </form>
+  </div>
+
+</div>
+src="../script/Settings.js"></script>
+</body>
+</html>

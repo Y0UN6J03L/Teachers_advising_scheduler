@@ -1,0 +1,99 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher and Student Scheduling</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./CSS/index.css">
+</head>
+<body>
+
+    <!-- Transition overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-content">
+            <div class="transition-loader"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Decorative shapes from login page -->
+    <div class="bg-shape-1"></div>
+    <div class="bg-shape-2"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <a class="nav-brand" href="#">
+            <img src="img/meta 5.png" alt="Meta5 Logo" class="nav-logo">
+            <span class="nav-title">Teacher and Student Scheduling</span>
+        </a>
+        <a href="HTML/Login_signup.html" class="nav-cta">Log in</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-badge">KLD Scheduling System</div>
+            <h1>Welcome to <span>Teacher & Student</span> Scheduling</h1>
+            <div class="glow-line"></div>
+            <p>Easily create and manage schedules in one place. Built for educators and students who value clarity, efficiency, and organization.</p>
+            <a href="HTML/Login_signup.html" class="hero-btn" onclick="transitionToPage(event, 'HTML/Login_signup.html')">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="cards-section">
+            <h3>What we offer</h3>
+            <div class="cards-grid">
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h4>Easy Scheduling</h4>
+                    <p>Create schedules quickly and efficiently with our simple, intuitive tools designed for busy educators.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h4>Stay Organized</h4>
+                    <p>Keep track of all your tasks and events in one convenient place — no more lost papers or missed classes.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h4>Accessible Anywhere</h4>
+                    <p>Access your schedules from any device, anytime, anywhere. All you need is a browser.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with ♥ by <a href="#" target="_blank">Meta5 <sub>2026</sub></a></p>
+    </footer>
+
+<script>
+        function transitionToPage(event, url) {
+            event.preventDefault();
+            const overlay = document.getElementById('pageTransition');
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = url;
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
